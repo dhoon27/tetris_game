@@ -2,7 +2,7 @@
 
 > 마지막 업데이트: 2026-03-15
 
-## 현재 단계: Phase 2 완료 → Phase 3 시작 전
+## 현재 단계: Phase 3 진행 중 (3-1 완료)
 
 ---
 
@@ -32,7 +32,7 @@
 - [x] 2-6. 최고 점수 저장 (PlayerPrefs)
 
 ## Phase 3 — 오디오
-- [ ] 3-1. BGM 루프
+- [x] 3-1. BGM 루프 (메인메뉴 전용, bgm_menu.mp3)
 - [ ] 3-2. 효과음 (이동, 착지, 줄 제거, 게임 오버)
 
 ## Phase 4 — 모바일 최적화
@@ -58,3 +58,4 @@
 | 2026-03-15 | Phase 2-4: PauseManager, PauseUI 구현 (일시정지/재개/메인메뉴 버튼) |
 | 2026-03-15 | Phase 2-5: GameOverUI 구현 (GAME OVER 패널, 최종 점수, RETRY/MAIN MENU) |
 | 2026-03-15 | Phase 2-6: 최고 점수 PlayerPrefs 저장, HUD BEST 표시, 게임오버 시 NEW BEST! |
+| 2026-03-15 | Phase 3-1: AudioManager 구현, 메인메뉴 BGM 루프 재생 (bgm_menu.mp3) |
