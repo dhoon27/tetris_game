@@ -1,4 +1,8 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 public class TouchInputHandler : MonoBehaviour
 {
@@ -8,49 +12,50 @@ public class TouchInputHandler : MonoBehaviour
     private Vector2 _touchStartPos;
     private float _touchStartTime;
 
+    private void OnEnable()
+    {
+        EnhancedTouchSupport.Enable();
+    }
+
+    private void OnDisable()
+    {
+        EnhancedTouchSupport.Disable();
+    }
+
     private void Update()
     {
-        // 실제 터치가 있으면 터치 처리
-        if (Input.touchCount > 0)
+        // 실제 터치 처리
+        if (Touch.activeTouches.Count > 0)
         {
-            HandleTouch(Input.GetTouch(0));
+            var touch = Touch.activeTouches[0];
+            if (touch.phase == TouchPhase.Began)
+            {
+                _touchStartPos = touch.screenPosition;
+                _touchStartTime = Time.time;
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                HandleTouchEnd(touch.screenPosition);
+            }
             return;
         }
 
-// 에디터/시뮬레이터에서는 마우스를 터치처럼 처리
+// 에디터에서는 마우스를 터치처럼 처리
 #if UNITY_EDITOR
-        HandleMouse();
-#endif
-    }
+        var mouse = Mouse.current;
+        if (mouse == null) return;
 
-    private void HandleTouch(Touch touch)
-    {
-        switch (touch.phase)
+        if (mouse.leftButton.wasPressedThisFrame)
         {
-            case TouchPhase.Began:
-                _touchStartPos = touch.position;
-                _touchStartTime = Time.time;
-                break;
-            case TouchPhase.Ended:
-                HandleTouchEnd(touch.position);
-                break;
-        }
-    }
-
-#if UNITY_EDITOR
-    private void HandleMouse()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _touchStartPos = Input.mousePosition;
+            _touchStartPos = mouse.position.ReadValue();
             _touchStartTime = Time.time;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (mouse.leftButton.wasReleasedThisFrame)
         {
-            HandleTouchEnd(Input.mousePosition);
+            HandleTouchEnd(mouse.position.ReadValue());
         }
-    }
 #endif
+    }
 
     private void HandleTouchEnd(Vector2 endPos)
     {
