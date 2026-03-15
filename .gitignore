@@ -41,6 +41,9 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
+# 자동 캡처 스크린샷
+Assets/Screenshots/
+
 # 빌드 결과물
 *.apk
 *.aab
