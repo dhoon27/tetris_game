@@ -57,6 +57,13 @@ Assets/Screenshots/
 AssetBundles/
 StreamingAssets/AssetBundles/
 
+# 작업 소스 폴더 (Assets/에 복사된 것만 사용)
+images/
+bgm/
+
+# bash 크래시 덤프
+*.stackdump
+
 # 크래시 리포트
 crashlytics-build.properties
 /Assets/AddressableAssetsData/*/*.bin*
