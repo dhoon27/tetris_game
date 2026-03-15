@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     // 다음 블록이 바뀔 때 NextPieceDisplay에 알리는 이벤트
     public event System.Action OnNextPieceChanged;
 
+    // 게임 오버 시 GameOverUI에 알리는 이벤트
+    public event System.Action OnGameOver;
+
     private void Awake()
     {
         Instance = this;
@@ -49,8 +52,8 @@ public class GameManager : MonoBehaviour
         // 스폰 직후 보드 최상단이 차있으면 게임 오버
         if (board.IsGameOver())
         {
-            Debug.Log("Game Over!");
             Destroy(go);
+            TriggerGameOver();
         }
     }
 
@@ -61,7 +64,7 @@ public class GameManager : MonoBehaviour
 
         if (board.IsGameOver())
         {
-            Debug.Log("Game Over!");
+            TriggerGameOver();
             return;
         }
 
@@ -87,6 +90,12 @@ public class GameManager : MonoBehaviour
     public void HardDropPiece()
     {
         _activePiece?.HardDrop();
+    }
+
+    private void TriggerGameOver()
+    {
+        Debug.Log("Game Over!");
+        OnGameOver?.Invoke();
     }
 
     private TetrominoData PickRandom()

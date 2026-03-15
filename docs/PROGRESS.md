@@ -2,7 +2,7 @@
 
 > 마지막 업데이트: 2026-03-15
 
-## 현재 단계: Phase 2 진행 중 (2-4 완료)
+## 현재 단계: Phase 2 진행 중 (2-5 완료)
 
 ---
 
@@ -28,7 +28,7 @@
 - [x] 2-2. 다음 블록 미리보기
 - [x] 2-3. 메인 메뉴 씬
 - [x] 2-4. 일시정지 기능
-- [ ] 2-5. 게임 오버 화면
+- [x] 2-5. 게임 오버 화면
 - [ ] 2-6. 최고 점수 저장 (PlayerPrefs)
 
 ## Phase 3 — 오디오
@@ -56,3 +56,4 @@
 | 2026-03-15 | Phase 2-2: NextPieceDisplay 구현, GameManager 다음 블록 예약 로직 추가 |
 | 2026-03-15 | Phase 2-3: MainMenu 씬 생성, PLAY 버튼, Build Settings 등록 |
 | 2026-03-15 | Phase 2-4: PauseManager, PauseUI 구현 (일시정지/재개/메인메뉴 버튼) |
+| 2026-03-15 | Phase 2-5: GameOverUI 구현 (GAME OVER 패널, 최종 점수, RETRY/MAIN MENU) |
