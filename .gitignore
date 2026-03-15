@@ -1,0 +1,74 @@
+# claude setting 파일
+.claude/
+.claudignore
+
+# Unity 생성 폴더
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Unity 캐시 및 자동 생성 파일
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+MemoryCaptures/
+Recordings/
+
+# Visual Studio / Rider 자동 생성 .csproj, .sln
+*.csproj
+*.sln
+*.slnx
+*.unityproj
+
+# VS Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.DotSettings.user
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 빌드 결과물
+*.apk
+*.aab
+*.ipa
+*.exe
+*.app
+*.dmg
+*.pkg
+
+# 에셋 번들 빌드 결과물
+AssetBundles/
+StreamingAssets/AssetBundles/
+
+# 크래시 리포트
+crashlytics-build.properties
+/Assets/AddressableAssetsData/*/*.bin*
+
+# Addressables 빌드 결과물
+/Assets/StreamingAssets/aa.meta
+/Assets/StreamingAssets/aa/
+
+# 환경설정/시크릿
+.env
+*.secret
+secrets.json
+
+# 프로파일러 데이터
+*.trace
+
+# 노드 모듈 (웹GL 빌드 관련)
+node_modules/
