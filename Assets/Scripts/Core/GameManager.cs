@@ -14,6 +14,12 @@ public class GameManager : MonoBehaviour
 
     private Piece _activePiece;
 
+    // 다음에 나올 블록 데이터
+    public TetrominoData NextData { get; private set; }
+
+    // 다음 블록이 바뀔 때 NextPieceDisplay에 알리는 이벤트
+    public event System.Action OnNextPieceChanged;
+
     private void Awake()
     {
         Instance = this;
@@ -21,12 +27,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // 게임 시작 시 next를 미리 뽑아두고 첫 스폰
+        NextData = PickRandom();
+        OnNextPieceChanged?.Invoke();
         SpawnPiece();
     }
 
     public void SpawnPiece()
     {
-        var data = tetrominoes[Random.Range(0, tetrominoes.Length)];
+        var data = NextData;
+
+        // 다음 블록 미리 뽑기
+        NextData = PickRandom();
+        OnNextPieceChanged?.Invoke();
 
         var go = new GameObject("ActivePiece");
         _activePiece = go.AddComponent<Piece>();
@@ -74,5 +87,10 @@ public class GameManager : MonoBehaviour
     public void HardDropPiece()
     {
         _activePiece?.HardDrop();
+    }
+
+    private TetrominoData PickRandom()
+    {
+        return tetrominoes[Random.Range(0, tetrominoes.Length)];
     }
 }
