@@ -2,7 +2,7 @@
 
 > 마지막 업데이트: 2026-03-15
 
-## 현재 단계: Phase 4 진행 중 (4-1 완료)
+## 현재 단계: Phase 4 진행 중 (4-2 완료)
 
 ---
 
@@ -37,7 +37,7 @@
 
 ## Phase 4 — 모바일 최적화
 - [x] 4-1. 화면 비율 대응 (Safe Area)
-- [ ] 4-2. Android 빌드 세팅
+- [x] 4-2. Android 빌드 세팅
 - [ ] 4-3. 성능 프로파일링
 
 ## Phase 5 — 출시 준비
@@ -60,3 +60,4 @@
 | 2026-03-15 | Phase 2-6: 최고 점수 PlayerPrefs 저장, HUD BEST 표시, 게임오버 시 NEW BEST! |
 | 2026-03-15 | Phase 3-1: AudioManager 구현, 메인메뉴 BGM 루프 재생 (bgm_menu.mp3) |
 | 2026-03-15 | Phase 4-1: SafeArea 스크립트 구현, Game/MainMenu 씬 SafeAreaPanel 적용 |
+| 2026-03-15 | Phase 4-2: AndroidBuildSetup Editor 스크립트 (APK/Mono/ARMv7+ARM64, minAPI 25) |
