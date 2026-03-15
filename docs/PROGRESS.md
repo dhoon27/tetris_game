@@ -2,7 +2,7 @@
 
 > 마지막 업데이트: 2026-03-15
 
-## 현재 단계: Phase 2 진행 중 (2-2 완료)
+## 현재 단계: Phase 2 진행 중 (2-3 완료)
 
 ---
 
@@ -26,7 +26,7 @@
 
 - [x] 2-1. 점수 / 레벨 / 줄 수 표시
 - [x] 2-2. 다음 블록 미리보기
-- [ ] 2-3. 메인 메뉴 씬
+- [x] 2-3. 메인 메뉴 씬
 - [ ] 2-4. 일시정지 기능
 - [ ] 2-5. 게임 오버 화면
 - [ ] 2-6. 최고 점수 저장 (PlayerPrefs)
@@ -54,3 +54,4 @@
 | 2026-03-15 | 프로젝트 문서 초기화 (CLAUDE.md, GDD.md, PROGRESS.md, ARCHITECTURE.md) |
 | 2026-03-15 | Phase 2-1: ScoreManager, HUD, Canvas UI 구현 (점수/레벨/줄 수 표시) |
 | 2026-03-15 | Phase 2-2: NextPieceDisplay 구현, GameManager 다음 블록 예약 로직 추가 |
+| 2026-03-15 | Phase 2-3: MainMenu 씬 생성, PLAY 버튼, Build Settings 등록 |
