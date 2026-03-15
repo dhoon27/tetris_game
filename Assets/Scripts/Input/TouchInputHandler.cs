@@ -1,8 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
-using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 public class TouchInputHandler : MonoBehaviour
 {
@@ -11,35 +8,36 @@ public class TouchInputHandler : MonoBehaviour
 
     private Vector2 _touchStartPos;
     private float _touchStartTime;
-
-    private void OnEnable()
-    {
-        EnhancedTouchSupport.Enable();
-    }
-
-    private void OnDisable()
-    {
-        EnhancedTouchSupport.Disable();
-    }
+    private bool _isTouching;
 
     private void Update()
     {
         // 일시정지 중에는 입력 무시
         if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return;
 
-        // 실제 터치 처리
-        if (Touch.activeTouches.Count > 0)
+        // 모바일 터치 처리 (Touchscreen.current 사용)
+        var touchscreen = Touchscreen.current;
+        if (touchscreen != null)
         {
-            var touch = Touch.activeTouches[0];
-            if (touch.phase == TouchPhase.Began)
+            var primaryTouch = touchscreen.primaryTouch;
+            var phase = primaryTouch.phase.ReadValue();
+
+            if (phase == UnityEngine.InputSystem.TouchPhase.Began)
             {
-                _touchStartPos = touch.screenPosition;
+                _touchStartPos = primaryTouch.position.ReadValue();
                 _touchStartTime = Time.time;
+                _isTouching = true;
             }
-            else if (touch.phase == TouchPhase.Ended)
+            else if (phase == UnityEngine.InputSystem.TouchPhase.Ended && _isTouching)
             {
-                HandleTouchEnd(touch.screenPosition);
+                _isTouching = false;
+                HandleTouchEnd(primaryTouch.position.ReadValue());
             }
+            else if (phase == UnityEngine.InputSystem.TouchPhase.None)
+            {
+                _isTouching = false;
+            }
+
             return;
         }
 

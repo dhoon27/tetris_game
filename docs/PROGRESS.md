@@ -61,3 +61,6 @@
 | 2026-03-15 | Phase 3-1: AudioManager 구현, 메인메뉴 BGM 루프 재생 (bgm_menu.mp3) |
 | 2026-03-15 | Phase 4-1: SafeArea 스크립트 구현, Game/MainMenu 씬 SafeAreaPanel 적용 |
 | 2026-03-15 | Phase 4-2: AndroidBuildSetup Editor 스크립트 (APK/Mono/ARMv7+ARM64, minAPI 25) |
+| 2026-03-15 | Bugfix: AndroidBuildSetup IL2CPP+ARM64로 변경, 패키지명 com.dh.tetrisgame |
+| 2026-03-15 | Bugfix: TouchInputHandler EnhancedTouch→Touchscreen.current (Android 터치 미작동 수정) |
+| 2026-03-15 | BuildScript.cs 추가 (Tools > Build Android APK 메뉴) |

@@ -11,10 +11,10 @@ public class AndroidBuildSetup
         EditorUserBuildSettings.buildAppBundle = false;
 
         // 패키지 이름 — Google Play 등록 시 유일해야 함
-        PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.dhoon.tetris");
+        PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.dh.tetrisgame");
 
         // 앱 이름 & 버전
-        PlayerSettings.productName = "Tetris";
+        PlayerSettings.productName = "TetrisGame";
         PlayerSettings.bundleVersion = "1.0.0";
         PlayerSettings.Android.bundleVersionCode = 1;
 
@@ -31,13 +31,13 @@ public class AndroidBuildSetup
         PlayerSettings.allowedAutorotateToLandscapeLeft = false;
         PlayerSettings.allowedAutorotateToLandscapeRight = false;
 
-        // 스크립팅 백엔드: Mono (테스트 빌드용 — 빌드 속도 빠름)
-        PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.Mono2x);
+        // 스크립팅 백엔드: IL2CPP (Android 12+ 64비트 요구사항 대응)
+        PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
 
-        // ARM 아키텍처: ARMv7 + ARM64 (대부분의 안드로이드 기기 커버)
-        PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
+        // ARM 아키텍처: ARM64만 (최신 기기 64비트 전용)
+        PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
 
-        Debug.Log("Android 빌드 세팅 완료! (APK / Mono / ARMv7+ARM64)");
+        Debug.Log("Android 빌드 세팅 완료! (APK / IL2CPP / ARM64)");
         EditorUtility.DisplayDialog("완료", "Android 빌드 세팅이 적용되었습니다.\n\nFile > Build Settings에서 Android 플랫폼으로 Switch 후 Build 하세요.", "확인");
     }
 }
