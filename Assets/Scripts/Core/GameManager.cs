@@ -50,4 +50,25 @@ public class GameManager : MonoBehaviour
         }
         SpawnPiece();
     }
+
+    // TouchInputHandler에서 호출되는 조작 메서드들
+    public void TryMovePiece(Vector2Int direction)
+    {
+        _activePiece?.TryMove(direction);
+    }
+
+    public void RotatePiece()
+    {
+        _activePiece?.TryRotate();
+    }
+
+    public void SoftDropPiece()
+    {
+        _activePiece?.TryMove(Vector2Int.down);
+    }
+
+    public void HardDropPiece()
+    {
+        _activePiece?.HardDrop();
+    }
 }

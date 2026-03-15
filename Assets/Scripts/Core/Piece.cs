@@ -74,6 +74,19 @@ public class Piece : MonoBehaviour
         return true;
     }
 
+    // 회전 (Phase 1-6에서 구현)
+    public void TryRotate()
+    {
+        // TODO: Phase 1-6
+    }
+
+    // 하드 드롭: 바닥까지 즉시 이동
+    public void HardDrop()
+    {
+        while (TryMove(Vector2Int.down)) { }
+        LockPiece();
+    }
+
     private void LockPiece()
     {
         _board.PlacePiece(transform);
