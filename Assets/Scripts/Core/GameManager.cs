@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
         var go = new GameObject("ActivePiece");
         _activePiece = go.AddComponent<Piece>();
+        _activePiece.StepDelay = ScoreManager.Instance.GetStepDelay();
         _activePiece.Initialize(board, data, _spawnPosition);
 
         // 스폰 직후 보드 최상단이 차있으면 게임 오버
@@ -43,11 +44,14 @@ public class GameManager : MonoBehaviour
     // Piece가 고정된 후 호출됨
     public void OnPieceLocked(int linesCleared)
     {
+        ScoreManager.Instance.AddScore(linesCleared);
+
         if (board.IsGameOver())
         {
             Debug.Log("Game Over!");
             return;
         }
+
         SpawnPiece();
     }
 
