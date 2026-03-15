@@ -7,22 +7,24 @@ public class ScoreManager : MonoBehaviour
     public int Score { get; private set; }
     public int Level { get; private set; } = 1;
     public int TotalLines { get; private set; }
+    public int BestScore { get; private set; }
+
+    // 이번 게임에서 신기록을 세웠는지
+    public bool IsNewBest { get; private set; }
 
     // 점수 변경 시 HUD에 알리는 이벤트
     public event System.Action OnScoreChanged;
 
-    // 레벨당 필요한 줄 수
+    private const string BestScoreKey = "BestScore";
     private const int LinesPerLevel = 10;
-
-    // 줄 수에 따른 기본 점수 (테트리스 공식)
     private static readonly int[] LineScores = { 0, 100, 300, 500, 800 };
 
     private void Awake()
     {
         Instance = this;
+        BestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
     }
 
-    // Board에서 줄 제거 후 GameManager를 통해 호출
     public void AddScore(int linesCleared)
     {
         if (linesCleared <= 0) return;
@@ -31,8 +33,16 @@ public class ScoreManager : MonoBehaviour
         Score += gain;
         TotalLines += linesCleared;
 
-        // 10줄마다 레벨 업 (최대 레벨 15)
         Level = Mathf.Min(1 + TotalLines / LinesPerLevel, 15);
+
+        // 최고 점수 갱신
+        if (Score > BestScore)
+        {
+            BestScore = Score;
+            IsNewBest = true;
+            PlayerPrefs.SetInt(BestScoreKey, BestScore);
+            PlayerPrefs.Save();
+        }
 
         OnScoreChanged?.Invoke();
     }
@@ -42,13 +52,12 @@ public class ScoreManager : MonoBehaviour
         Score = 0;
         Level = 1;
         TotalLines = 0;
+        IsNewBest = false;
         OnScoreChanged?.Invoke();
     }
 
-    // Piece의 낙하 속도: 레벨이 높을수록 빨라짐
     public float GetStepDelay()
     {
-        // 레벨 1 = 1.0초, 레벨 15 = 0.1초
         return Mathf.Max(1.0f - (Level - 1) * 0.065f, 0.1f);
     }
 }

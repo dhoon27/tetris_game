@@ -2,7 +2,7 @@
 
 > 마지막 업데이트: 2026-03-15
 
-## 현재 단계: Phase 2 진행 중 (2-5 완료)
+## 현재 단계: Phase 2 완료 → Phase 3 시작 전
 
 ---
 
@@ -29,7 +29,7 @@
 - [x] 2-3. 메인 메뉴 씬
 - [x] 2-4. 일시정지 기능
 - [x] 2-5. 게임 오버 화면
-- [ ] 2-6. 최고 점수 저장 (PlayerPrefs)
+- [x] 2-6. 최고 점수 저장 (PlayerPrefs)
 
 ## Phase 3 — 오디오
 - [ ] 3-1. BGM 루프
@@ -57,3 +57,4 @@
 | 2026-03-15 | Phase 2-3: MainMenu 씬 생성, PLAY 버튼, Build Settings 등록 |
 | 2026-03-15 | Phase 2-4: PauseManager, PauseUI 구현 (일시정지/재개/메인메뉴 버튼) |
 | 2026-03-15 | Phase 2-5: GameOverUI 구현 (GAME OVER 패널, 최종 점수, RETRY/MAIN MENU) |
+| 2026-03-15 | Phase 2-6: 최고 점수 PlayerPrefs 저장, HUD BEST 표시, 게임오버 시 NEW BEST! |

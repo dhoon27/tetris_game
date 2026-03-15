@@ -7,6 +7,7 @@ public class GameOverUI : MonoBehaviour
 {
     public GameObject gameOverPanel;
     public TMP_Text finalScoreText;
+    public TMP_Text newBestText;   // "NEW BEST!" 텍스트 (신기록 아니면 숨김)
     public Button retryButton;
     public Button mainMenuButton;
 
@@ -27,7 +28,9 @@ public class GameOverUI : MonoBehaviour
 
     private void ShowGameOver()
     {
-        finalScoreText.text = $"SCORE\n{ScoreManager.Instance.Score:N0}";
+        var sm = ScoreManager.Instance;
+        finalScoreText.text = $"SCORE\n{sm.Score:N0}\n\nBEST\n{sm.BestScore:N0}";
+        newBestText.gameObject.SetActive(sm.IsNewBest);
         gameOverPanel.SetActive(true);
     }
 
