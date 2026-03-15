@@ -87,3 +87,8 @@ secrets.json
 
 # 노드 모듈 (웹GL 빌드 관련)
 node_modules/
+
+# Unity 빌드 부산물
+.utmp/
+*_BurstDebugInformation_DoNotShip/
+*_BackUpThisFolder_ButDontShipItWithYourGame/
