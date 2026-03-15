@@ -61,6 +61,11 @@ StreamingAssets/AssetBundles/
 images/
 bgm/
 
+# TextMesh Pro 자동 임포트 에셋 (Unity에서 재생성 가능)
+# Window > TextMeshPro > Import TMP Essential Resources
+Assets/TextMesh Pro/
+Assets/TextMesh Pro.meta
+
 # bash 크래시 덤프
 *.stackdump
 
