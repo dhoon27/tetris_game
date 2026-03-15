@@ -24,6 +24,9 @@ public class TouchInputHandler : MonoBehaviour
 
     private void Update()
     {
+        // 일시정지 중에는 입력 무시
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return;
+
         // 실제 터치 처리
         if (Touch.activeTouches.Count > 0)
         {
