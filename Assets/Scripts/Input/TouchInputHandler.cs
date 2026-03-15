@@ -1,61 +1,33 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
-public class TouchInputHandler : MonoBehaviour
+/// <summary>
+/// 전체 화면 투명 패널에 부착하여 스와이프/탭 입력을 감지.
+/// EventSystem(IPointerDown/Up)을 사용하므로 Android에서 안정적으로 동작.
+/// </summary>
+public class TouchInputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private float SwipeThreshold => Screen.width * 0.08f;
     private const float HardDropSpeed = 1500f;
 
-    private InputAction _touchPressAction;
-    private InputAction _touchPositionAction;
-
     private Vector2 _touchStartPos;
-    private Vector2 _lastTouchPos;
     private float _touchStartTime;
-    private bool _isTouching;
 
-    private void OnEnable()
-    {
-        // InputAction으로 터치 바인딩 (New Input System 정석 방식)
-        _touchPressAction = new InputAction("TouchPress", binding: "<Touchscreen>/primaryTouch/press");
-        _touchPositionAction = new InputAction("TouchPosition", binding: "<Touchscreen>/primaryTouch/position");
-
-        // 에디터에서 마우스도 사용할 수 있도록 바인딩 추가
-        _touchPressAction.AddBinding("<Mouse>/leftButton");
-        _touchPositionAction.AddBinding("<Mouse>/position");
-
-        _touchPressAction.Enable();
-        _touchPositionAction.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _touchPressAction?.Disable();
-        _touchPositionAction?.Disable();
-    }
-
-    private void Update()
+    public void OnPointerDown(PointerEventData eventData)
     {
         // 일시정지 중에는 입력 무시
         if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return;
 
-        if (_touchPressAction.WasPressedThisFrame())
-        {
-            _touchStartPos = _touchPositionAction.ReadValue<Vector2>();
-            _touchStartTime = Time.time;
-            _isTouching = true;
-        }
+        _touchStartPos = eventData.position;
+        _touchStartTime = Time.time;
+    }
 
-        if (_isTouching && _touchPressAction.IsPressed())
-        {
-            _lastTouchPos = _touchPositionAction.ReadValue<Vector2>();
-        }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        // 일시정지 중에는 입력 무시
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return;
 
-        if (_touchPressAction.WasReleasedThisFrame() && _isTouching)
-        {
-            _isTouching = false;
-            HandleTouchEnd(_lastTouchPos);
-        }
+        HandleTouchEnd(eventData.position);
     }
 
     private void HandleTouchEnd(Vector2 endPos)
