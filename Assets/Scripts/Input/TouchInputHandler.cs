@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEngine.InputSystem;
+#endif
 
 public class TouchInputHandler : MonoBehaviour
 {
@@ -8,36 +10,26 @@ public class TouchInputHandler : MonoBehaviour
 
     private Vector2 _touchStartPos;
     private float _touchStartTime;
-    private bool _isTouching;
 
     private void Update()
     {
         // 일시정지 중에는 입력 무시
         if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return;
 
-        // 모바일 터치 처리 (Touchscreen.current 사용)
-        var touchscreen = Touchscreen.current;
-        if (touchscreen != null)
+        // 모바일 터치 처리 (Old Input API — Android에서 가장 안정적)
+        if (Input.touchCount > 0)
         {
-            var primaryTouch = touchscreen.primaryTouch;
-            var phase = primaryTouch.phase.ReadValue();
+            var touch = Input.GetTouch(0);
 
-            if (phase == UnityEngine.InputSystem.TouchPhase.Began)
+            if (touch.phase == UnityEngine.TouchPhase.Began)
             {
-                _touchStartPos = primaryTouch.position.ReadValue();
+                _touchStartPos = touch.position;
                 _touchStartTime = Time.time;
-                _isTouching = true;
             }
-            else if (phase == UnityEngine.InputSystem.TouchPhase.Ended && _isTouching)
+            else if (touch.phase == UnityEngine.TouchPhase.Ended)
             {
-                _isTouching = false;
-                HandleTouchEnd(primaryTouch.position.ReadValue());
+                HandleTouchEnd(touch.position);
             }
-            else if (phase == UnityEngine.InputSystem.TouchPhase.None)
-            {
-                _isTouching = false;
-            }
-
             return;
         }
 

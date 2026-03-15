@@ -34,9 +34,6 @@ public class Piece : MonoBehaviour
         // data.cells를 복사해 독립적인 회전 상태로 관리
         _cells = (Vector2Int[])data.cells.Clone();
 
-        var unlitMat = Resources.Load<Material>("Sprite-Unlit-Default")
-                       ?? new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
-
         foreach (var cell in _cells)
         {
             var blockObj = new GameObject("Block");
@@ -45,7 +42,6 @@ public class Piece : MonoBehaviour
             var sr = blockObj.AddComponent<SpriteRenderer>();
             sr.sprite = data.sprite;
             sr.sortingOrder = 1;
-            sr.material = unlitMat;
 
             blockObj.transform.localPosition = new Vector3(cell.x, cell.y, 0);
         }

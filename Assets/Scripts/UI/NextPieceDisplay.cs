@@ -6,14 +6,8 @@ public class NextPieceDisplay : MonoBehaviour
     // 미리보기에 사용할 블록 4개 (Init에서 자동 생성)
     private SpriteRenderer[] _blocks;
 
-    // Unlit 머티리얼 (Board/Piece와 동일)
-    private Material _unlitMat;
-
     private void Start()
     {
-        _unlitMat = Resources.Load<Material>("Sprite-Unlit-Default")
-                    ?? new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
-
         // 블록 4개 미리 생성 (비활성화 상태)
         _blocks = new SpriteRenderer[4];
         for (int i = 0; i < 4; i++)
@@ -22,7 +16,6 @@ public class NextPieceDisplay : MonoBehaviour
             go.transform.SetParent(transform);
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sortingOrder = 2;
-            sr.material = _unlitMat;
             go.SetActive(false);
             _blocks[i] = sr;
         }

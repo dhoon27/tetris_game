@@ -64,3 +64,4 @@
 | 2026-03-15 | Bugfix: AndroidBuildSetup IL2CPP+ARM64로 변경, 패키지명 com.dh.tetrisgame |
 | 2026-03-15 | Bugfix: TouchInputHandler EnhancedTouch→Touchscreen.current (Android 터치 미작동 수정) |
 | 2026-03-15 | BuildScript.cs 추가 (Tools > Build Android APK 메뉴) |
+| 2026-03-15 | UI 레이아웃 수정: LevelText/PauseButton 겹침 해결, SafeAreaPanel scale 1로 복구, CanvasScaler MatchWidthOrHeight 0.5 적용 |
