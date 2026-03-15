@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -36,11 +37,17 @@ public class Board : MonoBehaviour
     }
 
     // 블록 조각을 보드에 고정시킴
+    // 각 블록을 Board의 자식으로 이전해 Piece가 삭제돼도 화면에 남게 함
     public void PlacePiece(Transform piece)
     {
+        var blocks = new List<Transform>();
         foreach (Transform block in piece)
+            blocks.Add(block);
+
+        foreach (var block in blocks)
         {
             Vector2Int pos = WorldToBoard(block.position);
+            block.SetParent(transform); // Board 자식으로 이전
             if (pos.y < Height)
                 _grid[pos.x, pos.y] = block;
         }

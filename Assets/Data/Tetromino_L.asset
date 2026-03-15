@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e692cdc4b3685664987698362529041d, type: 3}
   m_Name: Tetromino_L
   m_EditorClassIdentifier: Assembly-CSharp::TetrominoData
-  sprite: {fileID: 21300000, guid: 87ab44d3b73f2a04990856696a14a561, type: 3}
+  sprite: {fileID: 3685002520340290964, guid: 87ab44d3b73f2a04990856696a14a561, type: 3}
   cells:
   - {x: -1, y: 0}
   - {x: 0, y: 0}
