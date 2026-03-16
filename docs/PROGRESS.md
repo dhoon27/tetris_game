@@ -1,6 +1,6 @@
 # 개발 진행 현황
 
-> 마지막 업데이트: 2026-03-15
+> 마지막 업데이트: 2026-03-16
 
 ## 현재 단계: Phase 4 진행 중 (4-2 완료)
 
@@ -65,3 +65,8 @@
 | 2026-03-15 | Bugfix: TouchInputHandler EnhancedTouch→Touchscreen.current (Android 터치 미작동 수정) |
 | 2026-03-15 | BuildScript.cs 추가 (Tools > Build Android APK 메뉴) |
 | 2026-03-15 | UI 레이아웃 수정: LevelText/PauseButton 겹침 해결, SafeAreaPanel scale 1로 복구, CanvasScaler MatchWidthOrHeight 0.5 적용 |
+| 2026-03-16 | Bugfix: Pause/GameOver 터치 미작동 — SafeAreaPanel raycastTarget 토글 + Time.unscaledTime 적용 |
+| 2026-03-16 | Bugfix: 블록 경계 이탈 — Border/Background 위치를 블록 셀 중심 (-0.5, -0.5)으로 재정렬 |
+| 2026-03-16 | Bugfix: UI가 보드 안에 겹침 — CameraFit을 마진 기반으로 재설계 (상12%/하5%/우15%/좌2%) |
+| 2026-03-16 | NextPieceDisplay를 월드 스페이스→Canvas UI(Image)로 전환, 우측 마진 영역에 배치 |
+| 2026-03-16 | PausePanel/GameOverPanel scale 0.75→1.0 변경 (전체 화면 덮어 터치 차단 강화) |

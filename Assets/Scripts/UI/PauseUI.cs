@@ -37,5 +37,10 @@ public class PauseUI : MonoBehaviour
     private void OnPauseChanged(bool isPaused)
     {
         pausePanel.SetActive(isPaused);
+
+        // Pause 패널이 뜰 때 SafeAreaPanel의 raycastTarget을 꺼서
+        // 투명 배경이 터치를 가로채지 않도록 함
+        if (TouchInputHandler.Instance != null)
+            TouchInputHandler.Instance.SetInputActive(!isPaused);
     }
 }

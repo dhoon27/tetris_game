@@ -1,23 +1,33 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-// 보드 우측 상단에 다음 블록을 SpriteRenderer로 미리 보여주는 컴포넌트
+/// <summary>
+/// Canvas UI 기반 다음 블록 미리보기.
+/// SafeAreaPanel 아래의 컨테이너에 부착하여 사용.
+/// </summary>
 public class NextPieceDisplay : MonoBehaviour
 {
-    // 미리보기에 사용할 블록 4개 (Init에서 자동 생성)
-    private SpriteRenderer[] _blocks;
+    [SerializeField] private float cellSize = 45f; // UI 셀 크기(픽셀)
+
+    private Image[] _blocks;
 
     private void Start()
     {
-        // 블록 4개 미리 생성 (비활성화 상태)
-        _blocks = new SpriteRenderer[4];
+        // UI Image 블록 4개 생성
+        _blocks = new Image[4];
         for (int i = 0; i < 4; i++)
         {
             var go = new GameObject("PreviewBlock_" + i);
-            go.transform.SetParent(transform);
-            var sr = go.AddComponent<SpriteRenderer>();
-            sr.sortingOrder = 2;
+            go.transform.SetParent(transform, false);
+
+            var img = go.AddComponent<Image>();
+            img.raycastTarget = false;
+
+            var rt = go.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(cellSize, cellSize);
+
             go.SetActive(false);
-            _blocks[i] = sr;
+            _blocks[i] = img;
         }
 
         GameManager.Instance.OnNextPieceChanged += Refresh;
@@ -48,11 +58,11 @@ public class NextPieceDisplay : MonoBehaviour
                 var cell = data.cells[i];
                 _blocks[i].sprite = data.sprite;
                 _blocks[i].gameObject.SetActive(true);
-                // 중심 기준으로 위치 설정
-                _blocks[i].transform.localPosition = new Vector3(
-                    cell.x - center.x,
-                    cell.y - center.y,
-                    0f);
+
+                var rt = _blocks[i].GetComponent<RectTransform>();
+                rt.anchoredPosition = new Vector2(
+                    (cell.x - center.x) * cellSize,
+                    (cell.y - center.y) * cellSize);
             }
             else
             {

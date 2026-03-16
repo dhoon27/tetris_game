@@ -32,6 +32,11 @@ public class GameOverUI : MonoBehaviour
         finalScoreText.text = $"SCORE\n{sm.Score:N0}\n\nBEST\n{sm.BestScore:N0}";
         newBestText.gameObject.SetActive(sm.IsNewBest);
         gameOverPanel.SetActive(true);
+
+        // GameOver 패널이 뜰 때 SafeAreaPanel의 raycastTarget을 꺼서
+        // RETRY/MAIN MENU 버튼이 터치를 받을 수 있게 함
+        if (TouchInputHandler.Instance != null)
+            TouchInputHandler.Instance.SetInputActive(false);
     }
 
     private void OnRetry()
