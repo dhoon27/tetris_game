@@ -70,3 +70,4 @@
 | 2026-03-16 | Bugfix: UI가 보드 안에 겹침 — CameraFit을 마진 기반으로 재설계 (상12%/하5%/우15%/좌2%) |
 | 2026-03-16 | NextPieceDisplay를 월드 스페이스→Canvas UI(Image)로 전환, 우측 마진 영역에 배치 |
 | 2026-03-16 | PausePanel/GameOverPanel scale 0.75→1.0 변경 (전체 화면 덮어 터치 차단 강화) |
+| 2026-03-16 | UI 리디자인: LINES 삭제, NEXT를 상단으로 이동, BEST 별도 박스, 텍스트 축소(36/28), 배경 박스 4개 추가 |

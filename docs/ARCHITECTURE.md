@@ -47,13 +47,16 @@ Game (씬)
 ├── EventSystem           ← InputSystemUIInputModule
 └── Canvas (Screen Space - Overlay, 1080×1920 기준, matchWidthOrHeight 0.5)
     ├── SafeAreaPanel     ← SafeArea.cs, Image(α=0, raycastTarget), TouchInputHandler.cs
-    │   ├── ScoreText     # 앵커 top-left
-    │   ├── LevelText     # 앵커 top-center
-    │   ├── LinesText     # 앵커 top-right
-    │   ├── PauseButton   # 앵커 top-right, SCORE 행 아래
-    │   ├── NextLabel     # 앵커 top-right, PauseButton 아래
-    │   ├── NextPieceContainer ← NextPieceDisplay.cs (UI Image 블록)
-    │   └── BestScoreText # 앵커 bottom-right
+    │   ├── PauseButton   # 앵커 top-right 모서리 (-15, -15), 90×90
+    │   ├── ScoreBox      # 배경 박스 (앵커 top-left, 240×110)
+    │   │   └── ScoreText # fontSize 36, "SCORE\n{값}"
+    │   ├── LevelBox      # 배경 박스 (앵커 top-center, 180×110)
+    │   │   └── LevelText # fontSize 36, "LEVEL\n{값}"
+    │   ├── NextBox       # 배경 박스 (앵커 top-right, 200×150)
+    │   │   ├── NextLabelText  # fontSize 28, "NEXT"
+    │   │   └── NextPieceContainer ← NextPieceDisplay.cs (UI Image 블록)
+    │   └── BestBox       # 배경 박스 (앵커 top-left, ScoreBox 아래, 240×90)
+    │       └── BestScoreText # fontSize 28, "BEST\n{값}"
     ├── PausePanel        # 반투명 오버레이 (scale 1, 비활성 기본)
     │   ├── PausedText
     │   ├── ResumeButton

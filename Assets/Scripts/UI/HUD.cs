@@ -6,7 +6,6 @@ public class HUD : MonoBehaviour
     [Header("텍스트 참조")]
     public TMP_Text scoreText;
     public TMP_Text levelText;
-    public TMP_Text linesText;
     public TMP_Text bestScoreText;
 
     private void Start()
@@ -25,7 +24,6 @@ public class HUD : MonoBehaviour
     {
         scoreText.text = $"SCORE\n{ScoreManager.Instance.Score:N0}";
         levelText.text = $"LEVEL\n{ScoreManager.Instance.Level}";
-        linesText.text = $"LINES\n{ScoreManager.Instance.TotalLines}";
         bestScoreText.text = $"BEST\n{ScoreManager.Instance.BestScore:N0}";
     }
 }

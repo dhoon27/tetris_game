@@ -13,14 +13,14 @@ public class CameraFit : MonoBehaviour
     [SerializeField] private float boardTop = 9.7f;
 
     [Header("UI 마진 (화면 비율)")]
-    [Tooltip("상단: SCORE/LEVEL/LINES 영역")]
-    [SerializeField] private float topMargin = 0.12f;
+    [Tooltip("상단: BEST/SCORE/LEVEL/NEXT/PAUSE 영역")]
+    [SerializeField] private float topMargin = 0.22f;
 
-    [Tooltip("하단: BEST 점수 영역")]
-    [SerializeField] private float bottomMargin = 0.05f;
+    [Tooltip("하단: 최소 여백")]
+    [SerializeField] private float bottomMargin = 0.02f;
 
-    [Tooltip("우측: PauseButton + NEXT 영역")]
-    [SerializeField] private float rightMargin = 0.15f;
+    [Tooltip("우측: 최소 여백")]
+    [SerializeField] private float rightMargin = 0.02f;
 
     [Tooltip("좌측: 최소 여백")]
     [SerializeField] private float leftMargin = 0.02f;
