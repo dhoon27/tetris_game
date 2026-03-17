@@ -14,7 +14,7 @@ public class CameraFit : MonoBehaviour
 
     [Header("UI 마진 (화면 비율)")]
     [Tooltip("상단: BEST/SCORE/LEVEL/NEXT/PAUSE 영역")]
-    [SerializeField] private float topMargin = 0.22f;
+    [SerializeField] private float topMargin = 0.26f;
 
     [Tooltip("하단: 최소 여백")]
     [SerializeField] private float bottomMargin = 0.02f;

@@ -58,13 +58,15 @@ Game (씬)
     │   │   └── NextPieceContainer ← NextPieceDisplay.cs (UI Image 블록)
     │   └── BestBox       # 배경 박스 (앵커 top-left, ScoreBox 아래, 240×90)
     │       └── BestScoreText # fontSize 28, "BEST\n{값}"
-    ├── PausePanel        # 반투명 오버레이 (scale 1, 비활성 기본)
+    ├── PausePanel        # 반투명 오버레이 + VerticalLayoutGroup (비활성 기본)
     │   ├── PausedText
     │   ├── ResumeButton
     │   └── MainMenuButton
-    └── GameOverPanel     # 반투명 오버레이 (scale 1, 비활성 기본)
+    └── GameOverPanel     # 반투명 오버레이 + VerticalLayoutGroup (비활성 기본)
         ├── GameOverText
-        ├── FinalScoreText
+        ├── ScoreBestRow      # 런타임 생성 (HorizontalLayoutGroup)
+        │   ├── GOScoreBox    # "SCORE\n{값}"
+        │   └── GOBestBox     # "BEST\n{값}"
         ├── NewBestText
         ├── RetryButton
         └── MainMenuButton
@@ -100,7 +102,7 @@ Game (씬)
 
 ### CameraFit 마진 시스템
 CameraFit.cs는 화면 비율에 관계없이 보드 주변에 UI 마진을 확보:
-- **상단 22%**: BEST / SCORE / LEVEL / NEXT 박스 + PauseButton 영역
+- **상단 26%**: BEST / SCORE / LEVEL / NEXT 박스 + PauseButton 영역
 - **하단 2%**: 최소 여백
 - **좌측 2%**: 최소 여백
 - **우측 2%**: 최소 여백

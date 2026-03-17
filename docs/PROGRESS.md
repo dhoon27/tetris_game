@@ -77,3 +77,5 @@
 | 2026-03-16 | UI 리디자인: LINES 삭제, NEXT를 상단으로 이동, BEST 별도 박스, 텍스트 축소(36/28), 배경 박스 4개 추가 |
 | 2026-03-17 | feat: 고스트 피스 — 블록 착지 위치를 반투명 회색 블록으로 미리 표시 (GhostPiece.cs 추가) |
 | 2026-03-17 | feat: 드래그 연속 이동 — 스와이프 1회→IDragHandler 기반 실시간 드래그 이동으로 개선 |
+| 2026-03-17 | fix: UI 겹침 4건 — CameraFit topMargin 26%, GameOver/Pause VerticalLayoutGroup, 버튼 autoSizing |
+| 2026-03-17 | feat: GameOver SCORE/BEST 나란히 배치 — HorizontalLayoutGroup 기반 런타임 UI 생성 |
