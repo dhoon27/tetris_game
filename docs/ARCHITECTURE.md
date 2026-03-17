@@ -26,7 +26,7 @@ Scripts/
 │   ├── GameOverUI.cs       # 게임 오버 패널 (재시도/메인메뉴 버튼)
 │   └── MainMenuUI.cs       # 메인 메뉴 (PLAY 버튼)
 ├── Input/
-│   └── TouchInputHandler.cs  # 스와이프/탭 감지, raycastTarget 토글
+│   └── TouchInputHandler.cs  # 드래그 연속 이동/탭 회전/하드 드롭, raycastTarget 토글
 └── Utils/
     ├── SafeArea.cs         # 노치/라운드 코너 대응 RectTransform 조정
     └── CameraFit.cs        # 화면 비율 기반 orthoSize + 카메라 위치 자동 조정
