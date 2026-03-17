@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour
         NextData = PickRandom();
         OnNextPieceChanged?.Invoke();
         SpawnPiece();
+
+        // 인게임 BGM 시작
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayIngameBGM();
     }
 
     public void SpawnPiece()
@@ -80,6 +84,12 @@ public class GameManager : MonoBehaviour
         if (_ghostPiece != null)
             Destroy(_ghostPiece.gameObject);
 
+        // 효과음: 줄 제거가 있으면 줄 제거 사운드, 아니면 착지 사운드
+        if (linesCleared > 0)
+            AudioManager.Instance?.PlayLineClear();
+        else
+            AudioManager.Instance?.PlayLanding();
+
         ScoreManager.Instance.AddScore(linesCleared);
 
         if (board.IsGameOver())
@@ -94,12 +104,14 @@ public class GameManager : MonoBehaviour
     // TouchInputHandler에서 호출되는 조작 메서드들
     public void TryMovePiece(Vector2Int direction)
     {
-        _activePiece?.TryMove(direction);
+        if (_activePiece != null && _activePiece.TryMove(direction))
+            AudioManager.Instance?.PlayMove();
     }
 
     public void RotatePiece()
     {
-        _activePiece?.TryRotate();
+        if (_activePiece != null && _activePiece.TryRotate())
+            AudioManager.Instance?.PlayMove();
     }
 
     public void SoftDropPiece()
@@ -116,6 +128,13 @@ public class GameManager : MonoBehaviour
     {
         if (_ghostPiece != null)
             Destroy(_ghostPiece.gameObject);
+
+        // 인게임 BGM 멈추고 게임오버 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopBGM();
+            AudioManager.Instance.PlayGameOver();
+        }
 
         Debug.Log("Game Over!");
         OnGameOver?.Invoke();

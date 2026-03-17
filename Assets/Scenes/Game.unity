@@ -293,6 +293,56 @@ RectTransform:
   m_AnchoredPosition: {x: -15, y: -15}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 1, y: 1}
+--- !u!1 &71013033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 71013035}
+  - component: {fileID: 71013034}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &71013034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71013033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76647f158293bb144bf66b793d24414b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  bgmClip: {fileID: 8300000, guid: 76ddf8622957c9041b79f517a859107b, type: 3}
+  bgmIngameClip: {fileID: 8300000, guid: 06f02658bec6296498f190a67f76ec33, type: 3}
+  sfxMove: {fileID: 8300000, guid: 110b1acdc4fa3de478853f949d40d61b, type: 3}
+  sfxLanding: {fileID: 8300000, guid: 1f872f4c1af46794ab861c443a1339a7, type: 3}
+  sfxLineClear: {fileID: 8300000, guid: 24363d877143281499e6278f6a951905, type: 3}
+  sfxGameOver: {fileID: 8300000, guid: 5c81efeb39aa8cd46939b4c95c7431fc, type: 3}
+--- !u!4 &71013035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71013033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &134563040
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,3 +4636,4 @@ SceneRoots:
   - {fileID: 833576130}
   - {fileID: 2094655677}
   - {fileID: 960177386}
+  - {fileID: 71013035}

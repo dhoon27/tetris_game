@@ -91,7 +91,7 @@ public class Piece : MonoBehaviour
     // 90도 시계 방향 회전
     // 회전 공식: (x, y) -> (y, -x)
     // Wall Kick으로 여러 위치를 시도해 하나라도 유효하면 회전 적용
-    public void TryRotate()
+    public bool TryRotate()
     {
         var rotated = new Vector2Int[_cells.Length];
         for (int i = 0; i < _cells.Length; i++)
@@ -109,10 +109,11 @@ public class Piece : MonoBehaviour
                 // 고스트 피스에 회전된 셀 동기화
                 if (_ghost != null)
                     _ghost.SyncCells(_cells);
-                return;
+                return true;
             }
         }
         // 모든 kick 실패 → 회전 취소
+        return false;
     }
 
     // 하드 드롭: 더 이상 내려갈 수 없을 때까지 즉시 낙하

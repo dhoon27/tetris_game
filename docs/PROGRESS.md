@@ -2,7 +2,7 @@
 
 > 마지막 업데이트: 2026-03-17
 
-## 현재 단계: Phase 4 진행 중 (4-2 완료, 고스트 피스 추가)
+## 현재 단계: Phase 4 진행 중 (4-2 완료, Phase 3 오디오 완료)
 
 ---
 
@@ -37,7 +37,7 @@
 
 ## Phase 3 — 오디오
 - [x] 3-1. BGM 루프 (메인메뉴 전용, bgm_menu.mp3)
-- [ ] 3-2. 효과음 (이동, 착지, 줄 제거, 게임 오버)
+- [x] 3-2. 효과음 (이동, 착지, 줄 제거, 게임 오버) + 인게임 BGM
 
 ## Phase 4 — 모바일 최적화
 - [x] 4-1. 화면 비율 대응 (Safe Area)
@@ -79,3 +79,4 @@
 | 2026-03-17 | feat: 드래그 연속 이동 — 스와이프 1회→IDragHandler 기반 실시간 드래그 이동으로 개선 |
 | 2026-03-17 | fix: UI 겹침 4건 — CameraFit topMargin 26%, GameOver/Pause VerticalLayoutGroup, 버튼 autoSizing |
 | 2026-03-17 | feat: GameOver SCORE/BEST 나란히 배치 — HorizontalLayoutGroup 기반 런타임 UI 생성 |
+| 2026-03-17 | Phase 3-2: 효과음 + 인게임 BGM — AudioManager SFX 확장, 이동/착지/줄제거/게임오버 효과음 적용 |
