@@ -9,10 +9,14 @@ public class AudioManager : MonoBehaviour
     public AudioClip bgmIngameClip;   // 인게임 BGM
 
     [Header("SFX")]
-    public AudioClip sfxMove;         // 블록 이동/회전
     public AudioClip sfxLanding;      // 블록 착지
     public AudioClip sfxLineClear;    // 줄 제거
     public AudioClip sfxGameOver;     // 게임 오버
+
+    [Header("SFX 재생 제한 (초)")]
+    public float sfxLandingDuration = 1.0f;
+    public float sfxLineClearDuration = 2.0f;
+    public float sfxGameOverDuration = 5.0f;
 
     private AudioSource _bgmSource;
     private AudioSource _sfxSource;
@@ -32,7 +36,7 @@ public class AudioManager : MonoBehaviour
         _bgmSource.playOnAwake = false;
         _bgmSource.volume = 0.7f;
 
-        // SFX용 AudioSource (PlayOneShot으로 겹쳐 재생 가능)
+        // SFX용 AudioSource
         _sfxSource = gameObject.AddComponent<AudioSource>();
         _sfxSource.playOnAwake = false;
         _sfxSource.volume = 1.0f;
@@ -55,8 +59,10 @@ public class AudioManager : MonoBehaviour
 
     public void PlayIngameBGM()
     {
+        _bgmSource.Stop();  // 기존 BGM 확실히 멈추고
         if (bgmIngameClip == null) return;
         _bgmSource.clip = bgmIngameClip;
+        _bgmSource.volume = 0.4f;  // 인게임 BGM은 조용하게
         _bgmSource.Play();
     }
 
@@ -71,28 +77,36 @@ public class AudioManager : MonoBehaviour
     }
 
     // --- SFX ---
+    // PlaySFX: 이전 효과음을 멈추고 새 효과음을 재생 (겹침 방지)
+    // maxDuration: 이 시간 후 자동 정지 (긴 mp3 대응)
 
-    public void PlayMove()
+    private void PlaySFX(AudioClip clip, float maxDuration)
     {
-        if (sfxMove != null)
-            _sfxSource.PlayOneShot(sfxMove);
+        if (clip == null) return;
+        _sfxSource.Stop();
+        _sfxSource.clip = clip;
+        _sfxSource.Play();
+        CancelInvoke(nameof(StopSFX));
+        Invoke(nameof(StopSFX), maxDuration);
+    }
+
+    private void StopSFX()
+    {
+        _sfxSource.Stop();
     }
 
     public void PlayLanding()
     {
-        if (sfxLanding != null)
-            _sfxSource.PlayOneShot(sfxLanding);
+        PlaySFX(sfxLanding, sfxLandingDuration);
     }
 
     public void PlayLineClear()
     {
-        if (sfxLineClear != null)
-            _sfxSource.PlayOneShot(sfxLineClear);
+        PlaySFX(sfxLineClear, sfxLineClearDuration);
     }
 
     public void PlayGameOver()
     {
-        if (sfxGameOver != null)
-            _sfxSource.PlayOneShot(sfxGameOver);
+        PlaySFX(sfxGameOver, sfxGameOverDuration);
     }
 }

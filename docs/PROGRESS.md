@@ -80,3 +80,4 @@
 | 2026-03-17 | fix: UI 겹침 4건 — CameraFit topMargin 26%, GameOver/Pause VerticalLayoutGroup, 버튼 autoSizing |
 | 2026-03-17 | feat: GameOver SCORE/BEST 나란히 배치 — HorizontalLayoutGroup 기반 런타임 UI 생성 |
 | 2026-03-17 | Phase 3-2: 효과음 + 인게임 BGM — AudioManager SFX 확장, 이동/착지/줄제거/게임오버 효과음 적용 |
+| 2026-03-17 | fix: 오디오 버그 3건 — BGM 겹침 방지, 이동 효과음 제거, SFX 자동 컷(긴 mp3 대응), 인게임 BGM 볼륨 0.4 |

@@ -150,10 +150,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   bgmClip: {fileID: 8300000, guid: 76ddf8622957c9041b79f517a859107b, type: 3}
   bgmIngameClip: {fileID: 8300000, guid: 06f02658bec6296498f190a67f76ec33, type: 3}
-  sfxMove: {fileID: 8300000, guid: 110b1acdc4fa3de478853f949d40d61b, type: 3}
   sfxLanding: {fileID: 8300000, guid: 1f872f4c1af46794ab861c443a1339a7, type: 3}
   sfxLineClear: {fileID: 8300000, guid: 24363d877143281499e6278f6a951905, type: 3}
   sfxGameOver: {fileID: 8300000, guid: 5c81efeb39aa8cd46939b4c95c7431fc, type: 3}
+  sfxLandingDuration: 1
+  sfxLineClearDuration: 2
+  sfxGameOverDuration: 5
 --- !u!4 &2167748
 Transform:
   m_ObjectHideFlags: 0

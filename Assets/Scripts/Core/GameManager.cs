@@ -104,14 +104,12 @@ public class GameManager : MonoBehaviour
     // TouchInputHandler에서 호출되는 조작 메서드들
     public void TryMovePiece(Vector2Int direction)
     {
-        if (_activePiece != null && _activePiece.TryMove(direction))
-            AudioManager.Instance?.PlayMove();
+        _activePiece?.TryMove(direction);
     }
 
     public void RotatePiece()
     {
-        if (_activePiece != null && _activePiece.TryRotate())
-            AudioManager.Instance?.PlayMove();
+        _activePiece?.TryRotate();
     }
 
     public void SoftDropPiece()
