@@ -14,6 +14,7 @@ Scripts/
 │   ├── Board.cs            # 10×20 그리드 상태 관리, 줄 제거
 │   ├── Piece.cs            # 현재 조작 중인 테트로미노 (이동, 회전)
 │   ├── TetrominoData.cs    # 7종 블록 모양/색상 데이터 (ScriptableObject)
+│   ├── GhostPiece.cs       # 착지 위치 미리보기 (반투명 회색 블록)
 │   ├── GameManager.cs      # 게임 상태 (시작/게임오버), 이벤트 발행
 │   ├── PauseManager.cs     # 일시정지 상태 + timeScale 관리
 │   ├── ScoreManager.cs     # 점수/레벨/줄 수 계산, 최고 점수 저장
@@ -80,6 +81,8 @@ Game (씬)
                     ↓
               Board.cs (IsValidPosition 충돌 검사 → 허용/거부)
                     ↓
+              GhostPiece.cs (LateUpdate에서 착지 위치 자동 계산)
+                    ↓
               Piece.cs (블록 착지 시) → Board.cs (PlacePiece + ClearLines)
                     ↓
               GameManager.OnPieceLocked → ScoreManager (점수/레벨 갱신)
@@ -97,10 +100,12 @@ Game (씬)
 
 ### CameraFit 마진 시스템
 CameraFit.cs는 화면 비율에 관계없이 보드 주변에 UI 마진을 확보:
-- **상단 12%**: SCORE / LEVEL / LINES 텍스트 영역
-- **하단 5%**: BEST 점수 영역
-- **우측 15%**: PauseButton + NEXT 미리보기 영역
+- **상단 22%**: BEST / SCORE / LEVEL / NEXT 박스 + PauseButton 영역
+- **하단 2%**: 최소 여백
 - **좌측 2%**: 최소 여백
+- **우측 2%**: 최소 여백
+
+UI가 모두 상단에 배치되므로 좌우/하단은 대칭 마진으로 보드를 중앙 정렬.
 
 orthoSize와 카메라 위치를 Start()에서 자동 계산하므로,
 씬 에디터의 카메라 값은 런타임에 덮어써짐.

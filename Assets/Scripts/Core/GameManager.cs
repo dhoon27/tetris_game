@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private readonly Vector2Int _spawnPosition = new Vector2Int(4, 18);
 
     private Piece _activePiece;
+    private GhostPiece _ghostPiece;
 
     // 다음에 나올 블록 데이터
     public TetrominoData NextData { get; private set; }
@@ -49,6 +50,9 @@ public class GameManager : MonoBehaviour
         _activePiece.StepDelay = ScoreManager.Instance.GetStepDelay();
         _activePiece.Initialize(board, data, _spawnPosition);
 
+        // 고스트 피스 생성: 떨어질 위치를 미리 보여줌
+        SpawnGhost(data);
+
         // 스폰 직후 보드 최상단이 차있으면 게임 오버
         if (board.IsGameOver())
         {
@@ -57,9 +61,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SpawnGhost(TetrominoData data)
+    {
+        // 이전 고스트 제거
+        if (_ghostPiece != null)
+            Destroy(_ghostPiece.gameObject);
+
+        var ghostGo = new GameObject("GhostPiece");
+        _ghostPiece = ghostGo.AddComponent<GhostPiece>();
+        _ghostPiece.Initialize(board, _activePiece, data.sprite, _activePiece.Cells);
+        _activePiece.SetGhost(_ghostPiece);
+    }
+
     // Piece가 고정된 후 호출됨
     public void OnPieceLocked(int linesCleared)
     {
+        // 고스트 피스 제거
+        if (_ghostPiece != null)
+            Destroy(_ghostPiece.gameObject);
+
         ScoreManager.Instance.AddScore(linesCleared);
 
         if (board.IsGameOver())
@@ -94,6 +114,9 @@ public class GameManager : MonoBehaviour
 
     private void TriggerGameOver()
     {
+        if (_ghostPiece != null)
+            Destroy(_ghostPiece.gameObject);
+
         Debug.Log("Game Over!");
         OnGameOver?.Invoke();
     }

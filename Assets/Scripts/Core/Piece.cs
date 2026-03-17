@@ -10,6 +10,12 @@ public class Piece : MonoBehaviour
     // 현재 회전 상태의 셀 좌표 (Initialize 시 data.cells를 복사, 회전할 때마다 갱신)
     private Vector2Int[] _cells;
 
+    // 고스트 피스가 셀 배열을 읽을 수 있도록 공개
+    public Vector2Int[] Cells => _cells;
+
+    // 고스트 피스 참조 (회전 시 셀 동기화용)
+    private GhostPiece _ghost;
+
     private float _stepTimer;
     public float StepDelay = 1f;
 
@@ -77,6 +83,11 @@ public class Piece : MonoBehaviour
         return false;
     }
 
+    public void SetGhost(GhostPiece ghost)
+    {
+        _ghost = ghost;
+    }
+
     // 90도 시계 방향 회전
     // 회전 공식: (x, y) -> (y, -x)
     // Wall Kick으로 여러 위치를 시도해 하나라도 유효하면 회전 적용
@@ -95,6 +106,9 @@ public class Piece : MonoBehaviour
                 Position = kickedPos;
                 UpdateWorldPosition();
                 ApplyCellsToBlocks();
+                // 고스트 피스에 회전된 셀 동기화
+                if (_ghost != null)
+                    _ghost.SyncCells(_cells);
                 return;
             }
         }
