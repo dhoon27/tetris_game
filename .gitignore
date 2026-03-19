@@ -92,3 +92,11 @@ node_modules/
 .utmp/
 *_BurstDebugInformation_DoNotShip/
 *_BackUpThisFolder_ButDontShipItWithYourGame/
+*.ap
+
+# Unity 성능 테스트 자동 생성
+Assets/Resources/PerformanceTestRun*.json
+Assets/Resources/PerformanceTestRun*.json.meta
+
+# 프로젝트 루트 임시 이미지
+gray_block_images.png
