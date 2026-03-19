@@ -40,11 +40,13 @@ public class GhostPiece : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    /// <summary>
+    /// Piece가 이동/회전할 때 호출 — 매 프레임 재계산 대신 필요할 때만 갱신
+    /// </summary>
+    public void Refresh()
     {
         if (_activePiece == null)
         {
-            // 활성 피스가 파괴되면 고스트도 숨김
             gameObject.SetActive(false);
             return;
         }

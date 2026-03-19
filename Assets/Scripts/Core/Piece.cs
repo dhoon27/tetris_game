@@ -78,6 +78,7 @@ public class Piece : MonoBehaviour
         {
             Position = newPos;
             UpdateWorldPosition();
+            _ghost?.Refresh();
             return true;
         }
         return false;
@@ -106,9 +107,12 @@ public class Piece : MonoBehaviour
                 Position = kickedPos;
                 UpdateWorldPosition();
                 ApplyCellsToBlocks();
-                // 고스트 피스에 회전된 셀 동기화
+                // 고스트 피스에 회전된 셀 동기화 + 위치 갱신
                 if (_ghost != null)
+                {
                     _ghost.SyncCells(_cells);
+                    _ghost.Refresh();
+                }
                 return true;
             }
         }

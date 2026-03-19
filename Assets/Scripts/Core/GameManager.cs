@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
         var ghostGo = new GameObject("GhostPiece");
         _ghostPiece = ghostGo.AddComponent<GhostPiece>();
         _ghostPiece.Initialize(board, _activePiece, data.sprite, _activePiece.Cells);
+        _ghostPiece.Refresh(); // 초기 위치 계산
         _activePiece.SetGhost(_ghostPiece);
     }
 

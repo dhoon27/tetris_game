@@ -13,7 +13,9 @@ public class BuildScript
             scenes = new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/Game.unity" },
             locationPathName = outputPath,
             target = BuildTarget.Android,
-            options = BuildOptions.None
+            options = EditorUserBuildSettings.development
+                ? BuildOptions.Development
+                : BuildOptions.None
         };
 
         var report = BuildPipeline.BuildPlayer(options);

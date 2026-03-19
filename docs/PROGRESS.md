@@ -1,8 +1,8 @@
 # 개발 진행 현황
 
-> 마지막 업데이트: 2026-03-17
+> 마지막 업데이트: 2026-03-19
 
-## 현재 단계: Phase 4 진행 중 (4-2 완료, Phase 3 오디오 완료)
+## 현재 단계: Phase 4 완료, Phase 5 대기
 
 ---
 
@@ -42,7 +42,7 @@
 ## Phase 4 — 모바일 최적화
 - [x] 4-1. 화면 비율 대응 (Safe Area)
 - [x] 4-2. Android 빌드 세팅
-- [ ] 4-3. 성능 프로파일링
+- [x] 4-3. 성능 프로파일링
 
 ## Phase 5 — 출시 준비
 - [ ] 5-1. Google AdMob 연동
@@ -81,3 +81,4 @@
 | 2026-03-17 | feat: GameOver SCORE/BEST 나란히 배치 — HorizontalLayoutGroup 기반 런타임 UI 생성 |
 | 2026-03-17 | Phase 3-2: 효과음 + 인게임 BGM — AudioManager SFX 확장, 이동/착지/줄제거/게임오버 효과음 적용 |
 | 2026-03-17 | fix: 오디오 버그 3건 — BGM 겹침 방지, 이동 효과음 제거, SFX 자동 컷(긴 mp3 대응), 인게임 BGM 볼륨 0.4 |
+| 2026-03-19 | Phase 4-3: 성능 프로파일링 — GhostPiece 매 프레임→이벤트 기반 최적화, FPS 카운터 추가, BuildScript Development Build 연동 |
