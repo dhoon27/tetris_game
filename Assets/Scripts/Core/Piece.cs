@@ -19,6 +19,14 @@ public class Piece : MonoBehaviour
     private float _stepTimer;
     public float StepDelay = 1f;
 
+    // Lock Delay: 착지 후 바로 잠기지 않고 일정 시간 여유를 줌
+    // 이동/회전하면 타이머 리셋 (최대 횟수 제한으로 무한 방지)
+    private const float LockDelay = 0.5f;
+    private const int MaxLockResets = 15;
+    private float _lockTimer;
+    private int _lockResetCount;
+    private bool _isLanding; // 바닥에 닿아있는 상태
+
     // Wall Kick 시도 오프셋 목록
     // 회전 후 겹칠 때 순서대로 시도해서 유효한 위치를 찾음
     private static readonly Vector2Int[] WallKickOffsets =
@@ -57,18 +65,42 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
-        _stepTimer += Time.deltaTime;
-        if (_stepTimer >= StepDelay)
+        if (_isLanding)
         {
-            _stepTimer = 0f;
-            MoveDown();
+            // 착지 상태: lock delay 타이머 진행
+            _lockTimer += Time.deltaTime;
+            if (_lockTimer >= LockDelay)
+            {
+                LockPiece();
+                return;
+            }
+
+            // 착지 상태에서도 아래가 빈 공간이면 (옆으로 이동해서 빠진 경우) 착지 해제
+            if (IsValidPosition(Position + Vector2Int.down, _cells))
+            {
+                _isLanding = false;
+            }
+        }
+        else
+        {
+            // 낙하 중: 일반 중력 타이머
+            _stepTimer += Time.deltaTime;
+            if (_stepTimer >= StepDelay)
+            {
+                _stepTimer = 0f;
+                MoveDown();
+            }
         }
     }
 
     private void MoveDown()
     {
         if (!TryMove(Vector2Int.down))
-            LockPiece();
+        {
+            // 바닥에 닿음 → 착지 상태 시작
+            _isLanding = true;
+            _lockTimer = 0f;
+        }
     }
 
     public bool TryMove(Vector2Int direction)
@@ -79,6 +111,7 @@ public class Piece : MonoBehaviour
             Position = newPos;
             UpdateWorldPosition();
             _ghost?.Refresh();
+            ResetLockTimer();
             return true;
         }
         return false;
@@ -113,6 +146,7 @@ public class Piece : MonoBehaviour
                     _ghost.SyncCells(_cells);
                     _ghost.Refresh();
                 }
+                ResetLockTimer();
                 return true;
             }
         }
@@ -133,6 +167,17 @@ public class Piece : MonoBehaviour
         int linesCleared = _board.ClearLines();
         GameManager.Instance.OnPieceLocked(linesCleared);
         Destroy(gameObject);
+    }
+
+    // 착지 상태에서 이동/회전 성공 시 lock timer 리셋
+    // 무한 리셋 방지를 위해 최대 횟수 제한
+    private void ResetLockTimer()
+    {
+        if (_isLanding && _lockResetCount < MaxLockResets)
+        {
+            _lockTimer = 0f;
+            _lockResetCount++;
+        }
     }
 
     // 주어진 pivot 위치와 셀 배열로 유효성 검사

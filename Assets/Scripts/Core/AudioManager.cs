@@ -44,7 +44,10 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayBGM();
+        // 메인메뉴 씬에서만 메뉴 BGM 자동 재생
+        // Game 씬에서는 GameManager.Start()가 PlayIngameBGM()을 호출함
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainMenu")
+            PlayBGM();
     }
 
     // --- BGM ---

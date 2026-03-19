@@ -11,8 +11,8 @@ public class TouchInputHandler : MonoBehaviour,
 {
     public static TouchInputHandler Instance { get; private set; }
 
-    // 1셀 이동에 필요한 드래그 거리 (화면 너비의 8%)
-    private float CellDragThreshold => Screen.width * 0.08f;
+    // 1셀에 대응하는 화면 드래그 거리 (화면 너비의 8%)
+    private float CellSize => Screen.width * 0.08f;
 
     // 하드 드롭 판정: 아래로 빠르게 스와이프
     private const float HardDropSpeed = 1500f;
@@ -21,17 +21,15 @@ public class TouchInputHandler : MonoBehaviour,
     private float TapThreshold => Screen.width * 0.04f;
     private const float TapMaxDuration = 0.3f;
 
-    // 소프트 드롭 1칸에 필요한 드래그 거리 (화면 높이의 5%)
-    private float DropDragThreshold => Screen.height * 0.05f;
-
     private Vector2 _touchStartPos;
     private float _touchStartTime;
     private Image _image;
 
-    // 드래그 누적 거리 (좌우/상하 각각 추적)
-    private float _dragAccumX;
-    private float _dragAccumY;
-    private Vector2 _lastDragPos;
+    // 터치 시작 시점의 블록 위치 (그리드 좌표)
+    private Vector2Int _pieceStartPos;
+    // 현재까지 적용된 그리드 오프셋
+    private int _appliedOffsetX;
+    private int _appliedOffsetY;
 
     // 드래그 중 이동이 발생했는지 (탭 판정용)
     private bool _hasDragged;
@@ -59,44 +57,46 @@ public class TouchInputHandler : MonoBehaviour,
 
         _touchStartPos = eventData.position;
         _touchStartTime = Time.unscaledTime;
-        _lastDragPos = eventData.position;
-        _dragAccumX = 0f;
-        _dragAccumY = 0f;
         _hasDragged = false;
+        _appliedOffsetX = 0;
+        _appliedOffsetY = 0;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return;
 
-        Vector2 currentPos = eventData.position;
-        Vector2 delta = currentPos - _lastDragPos;
-        _lastDragPos = currentPos;
+        Vector2 totalDelta = eventData.position - _touchStartPos;
+        float cellSize = CellSize;
 
-        _dragAccumX += delta.x;
-        _dragAccumY += delta.y;
+        // 터치 시작점 기준으로 몇 칸 이동해야 하는지 계산
+        int targetOffsetX = Mathf.RoundToInt(totalDelta.x / cellSize);
+        int targetOffsetY = Mathf.RoundToInt(totalDelta.y / cellSize);
+        // 위로 드래그는 무시 (아래로만)
+        if (targetOffsetY > 0) targetOffsetY = 0;
 
-        // 좌우 이동: 누적 거리가 1셀 임계값을 넘을 때마다 1칸 이동
-        float cellThreshold = CellDragThreshold;
-        while (_dragAccumX >= cellThreshold)
+        // 좌우 이동: 현재 적용된 오프셋과 목표 오프셋의 차이만큼 이동
+        while (_appliedOffsetX < targetOffsetX)
         {
-            GameManager.Instance.TryMovePiece(Vector2Int.right);
-            _dragAccumX -= cellThreshold;
+            if (GameManager.Instance != null)
+                GameManager.Instance.TryMovePiece(Vector2Int.right);
+            _appliedOffsetX++;
             _hasDragged = true;
         }
-        while (_dragAccumX <= -cellThreshold)
+        while (_appliedOffsetX > targetOffsetX)
         {
-            GameManager.Instance.TryMovePiece(Vector2Int.left);
-            _dragAccumX += cellThreshold;
+            if (GameManager.Instance != null)
+                GameManager.Instance.TryMovePiece(Vector2Int.left);
+            _appliedOffsetX--;
             _hasDragged = true;
         }
 
-        // 아래로 드래그: 소프트 드롭
-        float dropThreshold = DropDragThreshold;
-        while (_dragAccumY <= -dropThreshold)
+        // 아래 이동: 소프트 드롭
+        while (_appliedOffsetY > targetOffsetY)
         {
-            GameManager.Instance.SoftDropPiece();
-            _dragAccumY += dropThreshold;
+            if (GameManager.Instance != null)
+                GameManager.Instance.SoftDropPiece();
+            _appliedOffsetY--;
             _hasDragged = true;
         }
     }

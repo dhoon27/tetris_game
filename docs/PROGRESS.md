@@ -82,3 +82,7 @@
 | 2026-03-17 | Phase 3-2: 효과음 + 인게임 BGM — AudioManager SFX 확장, 이동/착지/줄제거/게임오버 효과음 적용 |
 | 2026-03-17 | fix: 오디오 버그 3건 — BGM 겹침 방지, 이동 효과음 제거, SFX 자동 컷(긴 mp3 대응), 인게임 BGM 볼륨 0.4 |
 | 2026-03-19 | Phase 4-3: 성능 프로파일링 — GhostPiece 매 프레임→이벤트 기반 최적화, FPS 카운터 추가, BuildScript Development Build 연동 |
+| 2026-03-19 | feat: Lock Delay — 착지 후 0.5초 여유, 이동/회전 시 타이머 리셋 (최대 15회) |
+| 2026-03-19 | feat: 터치 입력 개선 — 델타 누적→직접 위치 추적 방식으로 변경, 블록이 손가락을 따라 자유롭게 이동 |
+| 2026-03-19 | fix: 인게임 BGM — AudioManager.Start()가 모든 씬에서 메뉴 BGM 재생하던 버그 수정, bgm_ingame.mp3 교체 |
+| 2026-03-19 | fix: PauseButton 텍스트 Auto Size 적용 — 박스에 꽉 차도록 개선 |
